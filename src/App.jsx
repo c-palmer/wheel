@@ -1,5 +1,5 @@
 import styles from './App.module.css'
-import Canvas from './Canvas'
+import Canvas from './vanilla_konva/Canvas'
 
 export default () => {
   return (
