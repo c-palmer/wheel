@@ -1,8 +1,10 @@
-.title {
-    color: red;
+.wheel {
+    border: 1px solid black;
 }
 
-.canvas {
-    border: 1px solid black;
-    display: inline-block;
+.container {
+    display: flex;
+    background-color: grey;
+    justify-content: space-around;
+    max-width: 1200px;
 }

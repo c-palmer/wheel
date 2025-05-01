@@ -12,3 +12,6 @@ export const randomNumber = (lb, ub) => {
     
     return Math.floor(lb + Math.random() * (ub - lb + 1))
 }
+
+// might return infinity?
+export const toDegrees = rad => rad * (180 / Math.PI)
