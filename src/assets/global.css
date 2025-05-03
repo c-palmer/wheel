@@ -1,0 +1,25 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+:root {
+  --gap: 1rem;
+}
+
+h1 {
+  margin: 0;
+  margin-bottom: var(--gap);
+}
+
+input {
+  border: 1px solid #8f8f9d;
+  border-radius: 2px;
+}
+
+button {
+  cursor: pointer;
+}
