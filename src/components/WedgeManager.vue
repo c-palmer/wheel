@@ -3,23 +3,25 @@
   import { ref } from 'vue'
   import { randomColor } from '@/lib/aux_functions'
 
-  s.wedges.push(...[
-    {
-      id: 1,
-      text: 'a',
-      color: randomColor()
-    },
-    {
-      id: 2,
-      text: 'b',
-      color: randomColor()
-    },
-    {
-      id: 3,
-      text: 'c',
-      color: randomColor()
-    },
-  ])
+  if (s.wedges.length === 0) {
+    s.wedges.push(...[
+      {
+        id: 1,
+        text: 'a',
+        color: randomColor()
+      },
+      {
+        id: 2,
+        text: 'b',
+        color: randomColor()
+      },
+      {
+        id: 3,
+        text: 'c',
+        color: randomColor()
+      },
+    ])
+  }
 
   let newText = ref('')
 
@@ -30,17 +32,31 @@
 
     newText.value = ''
   }
+
+  const removeWedge = (id: number) => {
+    const index = s.wedges.findIndex(wedge => wedge.id === id)
+    s.wedges.splice(index, 1)
+  }
 </script>
 
 <template>
-  <div>
+  <div style="display: flex; flex-direction: column;">
     <h2>Add Movie</h2>
 
     <input type="text" v-model="newText" @keyup.enter="handleEnter" placeholder="Add a Movie">
 
-    <div v-for="wedge in s.wedges" :key="wedge.id">
+    <div v-for="wedge in s.wedges" :key="wedge.id" class="wedge-entry">
       <input type="text" v-model="wedge.text">
-      <button @click="() => s.wedges = s.wedges.filter(({ id }) => wedge.id !== id)">X</button>
+      <input type="color" v-model="wedge.color">
+      <button @click="removeWedge(wedge.id)">X</button>
     </div>
   </div>
 </template>
+
+<style scoped>
+  .wedge-entry {
+    border: 1px solid black;
+    display: flex;
+    padding: var(--gap);
+  }
+</style>

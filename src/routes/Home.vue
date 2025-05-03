@@ -2,17 +2,57 @@
   import s from '@/lib/state'
   import Wheel from '@/components/Wheel.vue'
   import WedgeManager from '@/components/WedgeManager.vue'
-  import AnimTest from '@/components/AnimTest.vue'
+
+  const tableData = [
+    [ 'spinning', s.wheelIsRotating ],
+    [ 'winner', s.winner ],
+    [ 'speed', s.speed ],
+    [ 'duration (ms)', s.duration ]
+  ]
 </script>
 
 <template>
   <h1>Wheel</h1>
 
-  <Wheel />
-  <WedgeManager />
-  <!-- <AnimTest /> -->
-
-  <!-- <ul>
-    <li v-for="wedge in s.wedges">{{ wedge.text }}</li>
-  </ul> -->
+  <div class="container">
+    <Wheel />
+    <WedgeManager />
+  </div>
+  <label>Speed: <input type="number" v-model="s.speed"></label>
+  <label>Duration: <input type="number" v-model="s.duration"></label>
+  <table>
+    <thead>
+      <tr>
+        <th>Attribute</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="[attr, val] in tableData">
+        <td>{{ attr }}</td>
+        <td>{{ val }}</td>
+      </tr>
+    </tbody>
+  </table>
 </template>
+
+<style scoped>
+  .container {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  td, th {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: calc(var(--gap) / 2);
+  }
+
+  tbody tr:nth-child(odd) {
+    background-color: #ddd;
+  }
+</style>

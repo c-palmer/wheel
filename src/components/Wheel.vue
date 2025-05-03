@@ -14,18 +14,30 @@
   let layer = ref(null)
   let wheel = ref(null)
 
-  let speed = ref(1)
   let wheelAngle = ref(0)
 
-  // const calcRotation = x => x === 0 ? 0 : 1 / x
-  const calcRotation = x => {
-    if (x === 0) return 10
-
-    if (x < 5_000) return 10
+  // // const calcRotationX = x => x === 0 ? 0 : 1 / x
+  // const calcRotationX = x => {
+  //   // return s.speed * (10 - x * .0005)
+  //   // return (1 - Math.pow(1 - (x * s.speed), 4))
+  //   return ((x * s.speed) / -5) + 10
+  //   // if (x === 0 || x < 5_000) return s.speed
     
-    return -Math.log((x - 3_000) / 10) + 5
+  //   // return -Math.log((x - 3_000) / 10) + 5
+  // }
+  // // const calcRotationX = x => x === 1 ? 1 : 1 - Math.pow(2, -10 * x)
+  // const calcNextRotation = prevRotation => {
+  //   // if (prevRotation === 0)
+  //   return prevRotation + 1
+  // }
+
+  const handleWheelButton = () => {
+    if (s.wheelIsRotating) {
+      stopRotate()
+    } else {
+      startRotate()
+    }
   }
-  // const calcRotation = x => x === 1 ? 1 : 1 - Math.pow(2, -10 * x)
 
   let rotateButtonHeight = 50
   let rotateButtonWidth = 50
@@ -35,33 +47,59 @@
   const startRotate = () => {
     if (anim) return
 
+    const startTime = Date.now()
     anim = new Konva.Animation(frame => {
-      const curRotation = wheel.value.getNode().rotation()
-      const diff = calcRotation(frame.time)
-      if (diff < 0) {
-        speed.value = 0
+      if (!wheel.value) return
+
+      const prevRotation = wheel.value.getNode().rotation()
+      // const newRotation = calcNextRotation(prevRotation)
+
+      const newRotation = prevRotation + s.speed
+
+      if (Date.now() - startTime >= s.duration || s.speed === 0) {
+        s.speed = s.initialSpeed
         console.log('wheel stop')
         anim.stop()
+        s.wheelIsRotating = false
         anim = null
         animStart = false
       }
 
-      const newRotation = curRotation + diff
-      wheel.value.getNode().rotation(curRotation + diff)
-      console.log(diff, newRotation)
-      // speed.value -= frame.time * 0.001
+      console.log(prevRotation, newRotation)
+
+      if (newRotation < 0) {
+        s.speed = s.initialSpeed
+        console.log('wheel stop')
+        anim.stop()
+        s.wheelIsRotating = false
+        anim = null
+        animStart = false
+      }
+
+      wheel.value.getNode().rotation(newRotation)
     }, layer.value.getNode())
 
     anim.start()
+    s.wheelIsRotating = true
     animStart = true
   }
 
   const stopRotate = () => {
     if (!anim) return
+    if (!wheel.value) return
 
     anim.stop()
+    console.log('stop angle:', wheel.value.getNode().rotation())
+    s.wheelIsRotating = false
     anim = null
     animStart = false
+  }
+
+  const wheelStyle = {
+    width: rotateButtonWidth + 'px',
+    height: rotateButtonHeight + 'px',
+    top: ((height - rotateButtonHeight) / 2) + 'px',
+    left: ((width - rotateButtonWidth) / 2) + 'px',
   }
 </script>
 
@@ -79,11 +117,8 @@
         </v-group>
       </v-layer>
     </v-stage>
-    <button class="rotate" :style="{ width: `${rotateButtonWidth}px`, height: `${rotateButtonHeight}px`, top: `${(height - rotateButtonHeight) / 2}px`, left: `${(width - rotateButtonWidth) / 2}px` }" @click="startRotate">rotate</button>
+    <button class="rotate" :style="wheelStyle" @click="handleWheelButton">{{ s.wheelIsRotating ? 'STOP' : 'SPIN' }}</button>
   </div>
-
-  <button @click="stopRotate">stop rotation</button>
-  <input type="number" v-model="speed">
 </template>
 
 <style scoped>

@@ -20,9 +20,15 @@ type Wedge = {
 }
 
 const wedges: Wedge[] = reactive([])
+const initialSpeed = 0.1
 
 const s = reactive({
-  wedges
+  wedges,
+  wheelIsRotating: false,
+  winner: '',
+  initialSpeed,
+  speed: initialSpeed,
+  duration: 10_000,
 })
 
 export default s
