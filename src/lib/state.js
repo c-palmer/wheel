@@ -1,19 +1,8 @@
-// import { ref, computed } from 'vue'
-// import { defineStore } from 'pinia'
-
-// export const useCounterStore = defineStore('counter', () => {
-//   const count = ref(0)
-//   const doubleCount = computed(() => count.value * 2)
-//   function increment() {
-//     count.value++
-//   }
-
-//   return { count, doubleCount, increment }
-// })
-
 import { reactive } from 'vue'
+import { randomNumber } from './aux_functions'
 
-const initialSpeed = 0.1
+const initialSpeed = 30
+const initialAngle = randomNumber(0, 360)
 
 const s = reactive({
   wedges: [],
@@ -22,6 +11,8 @@ const s = reactive({
   initialSpeed,
   speed: initialSpeed,
   duration: 10_000,
+  timeElapsed: 0,
+  wheelAngle: initialAngle,
 })
 
 export default s

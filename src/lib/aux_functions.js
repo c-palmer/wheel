@@ -8,3 +8,7 @@ export const randomColor = () => {
     }
     return color
 }
+
+export const randomNumber = (lb, ub) => {
+    return lb + Math.floor(Math.random() * (ub - lb + 1))
+}

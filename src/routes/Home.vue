@@ -2,13 +2,17 @@
   import s from '@/lib/state'
   import Wheel from '@/components/Wheel.vue'
   import WedgeManager from '@/components/WedgeManager.vue'
+  import { computed } from 'vue'
 
-  const tableData = [
+  const tableData = computed( () => [
     [ 'spinning', s.wheelIsRotating ],
     [ 'winner', s.winner ],
+    [ 'initialSpeed', s.initialSpeed ],
     [ 'speed', s.speed ],
-    [ 'duration (ms)', s.duration ]
-  ]
+    [ 'duration (ms)', s.duration ],
+    [ 'timeElapsed', s.timeElapsed ],
+    [ 'wheelAngle', s.wheelAngle ],
+  ])
 </script>
 
 <template>
@@ -18,7 +22,7 @@
     <Wheel />
     <WedgeManager />
   </div>
-  <label>Speed: <input type="number" v-model="s.speed"></label>
+  <label>Initial Speed: <input type="number" v-model="s.initialSpeed"></label>
   <label>Duration: <input type="number" v-model="s.duration"></label>
   <table>
     <thead>
