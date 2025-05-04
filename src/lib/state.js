@@ -13,17 +13,10 @@
 
 import { reactive } from 'vue'
 
-type Wedge = {
-  id: number
-  text: string
-  color: string
-}
-
-const wedges: Wedge[] = reactive([])
 const initialSpeed = 0.1
 
 const s = reactive({
-  wedges,
+  wedges: [],
   wheelIsRotating: false,
   winner: '',
   initialSpeed,

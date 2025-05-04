@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
   let wheel = 'this is wheel'
 </script>
 

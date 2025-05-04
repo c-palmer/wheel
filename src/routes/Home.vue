@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
   import s from '@/lib/state'
   import Wheel from '@/components/Wheel.vue'
   import WedgeManager from '@/components/WedgeManager.vue'

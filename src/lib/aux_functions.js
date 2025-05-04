@@ -1,4 +1,4 @@
-export const toDegrees = (rad: number) => rad * (180 / Math.PI)
+export const toDegrees = rad => rad * (180 / Math.PI)
 
 export const randomColor = () => {
     const letters = '0123456789ABCDEF'

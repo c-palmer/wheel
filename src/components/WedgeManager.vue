@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
   import s from '@/lib/state'
   import { ref } from 'vue'
   import { randomColor } from '@/lib/aux_functions'
@@ -25,7 +25,7 @@
 
   let newText = ref('')
 
-  const handleEnter = (e: Event) => {
+  const handleEnter = e => {
     const id = s.wedges.length === 0 ? 1 : s.wedges[s.wedges.length - 1].id + 1
 
     s.wedges.push({ id, text: newText.value, color: randomColor() })
@@ -33,7 +33,7 @@
     newText.value = ''
   }
 
-  const removeWedge = (id: number) => {
+  const removeWedge = id => {
     const index = s.wedges.findIndex(wedge => wedge.id === id)
     s.wedges.splice(index, 1)
   }
