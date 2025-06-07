@@ -1,26 +1,12 @@
 <script setup>
   import s from '@/lib/state'
   import { ref } from 'vue'
-  import { randomColor } from '@/lib/aux_functions'
+  import { randomChoice, randomColor } from '@/lib/aux_functions'
+
+  const initialColors = [ '#2b580c', '#fdef96', '#f7b71d', '#afa939' ]
 
   if (s.wedges.length === 0) {
-    s.wedges.push(...[
-      {
-        id: 1,
-        text: 'a',
-        color: randomColor()
-      },
-      {
-        id: 2,
-        text: 'b',
-        color: randomColor()
-      },
-      {
-        id: 3,
-        text: 'c',
-        color: randomColor()
-      },
-    ])
+    s.wedges.push(...Array.from({ length: 8 }, (_, i) => ({ id: i, text: i % 2 === 0 ? 'YES' : 'NO', color: initialColors[i % initialColors.length] })))
   }
 
   let newText = ref('')

@@ -3,6 +3,8 @@
   import s from '@/lib/state'
   import { toDegrees } from '@/lib/aux_functions'
   import Konva from 'konva'
+  import buttonAudio from '@/assets/button.mp3'
+  import celebrationAudio from '@/assets/celebration.mp3'
 
   let layer = ref(null)
   let wheel = ref(null)
@@ -50,6 +52,7 @@
     s.wheelIsRotating = true
   }
 
+  const celebrationAudioRef = ref(null)
   const stopRotate = () => {
     if (!anim) return
 
@@ -59,13 +62,16 @@
     s.wheelIsRotating = false
     s.timeElapsed = 0
     s.speed = s.initialSpeed
+    if (celebrationAudioRef.value) celebrationAudioRef.value.play()
   }
 
+  const buttonAudioRef = ref(null)
   const handleWheelButton = () => {
     if (s.wheelIsRotating) {
       stopRotate()
     } else {
       startRotate()
+      if (buttonAudioRef.value) buttonAudioRef.value.play()
     }
   }
 
@@ -94,6 +100,8 @@
       </v-layer>
     </v-stage>
     <button class="rotate" :style="wheelStyle" @click="handleWheelButton">{{ s.wheelIsRotating ? 'STOP' : 'SPIN' }}</button>
+    <audio ref="buttonAudioRef" :src="buttonAudio"></audio>
+    <audio ref="celebrationAudioRef" :src="celebrationAudio"></audio>
   </div>
 </template>
 

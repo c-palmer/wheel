@@ -10,7 +10,7 @@ const s = reactive({
   winner: '',
   initialSpeed,
   speed: initialSpeed,
-  duration: 10_000,
+  duration: 30_000,
   timeElapsed: 0,
   wheelAngle: initialAngle,
 })

@@ -3,6 +3,7 @@
   import Wheel from '@/components/Wheel.vue'
   import WedgeManager from '@/components/WedgeManager.vue'
   import { computed } from 'vue'
+  import { randomNumber } from '@/lib/aux_functions'
 
   const tableData = computed( () => [
     [ 'spinning', s.wheelIsRotating ],
@@ -22,9 +23,9 @@
     <Wheel />
     <WedgeManager />
   </div>
-  <label>Initial Speed: <input type="number" v-model="s.initialSpeed"></label>
+  <!-- <label>Initial Speed: <input type="number" v-model="s.initialSpeed"></label> -->
   <label>Duration: <input type="number" v-model="s.duration"></label>
-  <table>
+  <!-- <table>
     <thead>
       <tr>
         <th>Attribute</th>
@@ -37,7 +38,7 @@
         <td>{{ val }}</td>
       </tr>
     </tbody>
-  </table>
+  </table> -->
 </template>
 
 <style scoped>

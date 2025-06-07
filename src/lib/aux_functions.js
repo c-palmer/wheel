@@ -9,6 +9,12 @@ export const randomColor = () => {
     return color
 }
 
+// returns number [lb, ub]
 export const randomNumber = (lb, ub) => {
     return lb + Math.floor(Math.random() * (ub - lb + 1))
+}
+
+export const randomChoice = array => {
+    const randomIndex = randomNumber(0, array.length - 1)
+    return array[randomIndex]
 }
